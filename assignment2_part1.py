@@ -25,12 +25,11 @@ def train(hidden_layers):
 
 def simulate(layers_range, nodes_range, samples=5):
     _scores = []
-    for layers in layers_range: #this is a pretty extensive search, so give it some time. 
+    for layers in layers_range:
         for nodes in nodes_range:
             score = 0
             print(f'training {layers}*{nodes} with an average of {samples} samples')
             for j in range(samples):
-                #predictions = clf.predict_proba(X_test)
                 score += train( [nodes]*layers )
             _scores += [(layers, nodes, score/samples)]
     return _scores
@@ -58,22 +57,21 @@ X, y = datasets.load_digits(return_X_y=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-warm = input("Use previous values? y/n: ")=="y"
+#warm = input("Use previous values? y/n: ")=="y"
+#if not warm:
+layers_min = int(input("How many layers to start with: "))
+layers_max = int(input("How many layers to end with: "))+1
+layers_inc = int(input("How many layers to increment with: "))
+layers_range = range(layers_min, layers_max, layers_inc)
 
-if not warm:
-    layers_min = int(input("How many layers to start with: "))
-    layers_max = int(input("How many layers to end with: "))+1
-    layers_inc = int(input("How many layers to increment with: "))
-    layers_range = range(layers_min, layers_max, layers_inc)
-    
-    nodes_min = int(input("How many nodes to start with: "))
-    nodes_max = int(input("How many nodes to end with: "))+1
-    nodes_inc = int(input("How many nodes to increment with: "))
-    nodes_range = range(nodes_min, nodes_max, nodes_inc)
-    
-    samples = int(input("How many samples per parameter set: "))
-            
-    scores = simulate(layers_range, nodes_range, samples)
+nodes_min = int(input("How many nodes to start with: "))
+nodes_max = int(input("How many nodes to end with: "))+1
+nodes_inc = int(input("How many nodes to increment with: "))
+nodes_range = range(nodes_min, nodes_max, nodes_inc)
+
+samples = int(input("How many samples per parameter set: "))
+        
+scores = simulate(layers_range, nodes_range, samples)
 
 parameters_sorted = sorted(scores, key=(lambda e:e[2]), reverse=True)
 p = list(zip(*scores))
