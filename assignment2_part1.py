@@ -57,25 +57,25 @@ X, y = datasets.load_digits(return_X_y=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-#warm = input("Use previous values? y/n: ")=="y"
-#if not warm:
-layers_min = int(input("How many layers to start with: "))
-layers_max = int(input("How many layers to end with: "))+1
-layers_inc = int(input("How many layers to increment with: "))
-layers_range = range(layers_min, layers_max, layers_inc)
+warm = input("Use previous values? y/n: ")=="y"
+if not warm:
+    layers_min = int(input("How many layers to start with: "))
+    layers_max = int(input("How many layers to end with: "))+1
+    layers_inc = int(input("How many layers to increment with: "))
+    layers_range = range(layers_min, layers_max, layers_inc)
+    
+    nodes_min = int(input("How many nodes to start with: "))
+    nodes_max = int(input("How many nodes to end with: "))+1
+    nodes_inc = int(input("How many nodes to increment with: "))
+    nodes_range = range(nodes_min, nodes_max, nodes_inc)
 
-nodes_min = int(input("How many nodes to start with: "))
-nodes_max = int(input("How many nodes to end with: "))+1
-nodes_inc = int(input("How many nodes to increment with: "))
-nodes_range = range(nodes_min, nodes_max, nodes_inc)
-
-samples = int(input("How many samples per parameter set: "))
+    samples = int(input("How many samples per parameter set: "))
         
-scores = simulate(layers_range, nodes_range, samples)
+    scores = simulate(layers_range, nodes_range, samples)
 
 parameters_sorted = sorted(scores, key=(lambda e:e[2]), reverse=True)
 p = list(zip(*scores))
-p_adjusted = list(zip(*[(lay, nod, 1/(1-acc)) for lay, nod, acc in scores]))
+
 height_adjust = lambda z: 1/(1-z)
 
 print(f"best parameter: {parameters_sorted[0]}\nRunner ups:")
