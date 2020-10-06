@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix as cm
-from joblib import dump
+from joblib import dump #, load
 
 from sklearn import svm
 
@@ -23,12 +23,13 @@ X, y = datasets.load_digits(return_X_y=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-c_range = np.arange(-3, 9, 1.0)
-gamma_range = np.arange(-9,-2.0,0.5)
-#scores_1d = []
-#scores_2d = []
+c_range = np.arange(-3, 9, 0.5)
+gamma_range = np.arange(-9,-2.0,0.25)
+scores_1d = []
+scores_2d = []
+
+#Not a while loop, but does the same thing...
 for c in c_range:
-    break
     row = []
     for g in gamma_range:
         score = train(10**c, 10**g).score(X_test, y_test)

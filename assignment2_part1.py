@@ -57,8 +57,8 @@ X, y = datasets.load_digits(return_X_y=True)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-warm = input("Use previous values? y/n: ")=="y"
-if not warm:
+custom = input("Use custom values? y/n: ")=="y"
+if custom:
     layers_min = int(input("How many layers to start with: "))
     layers_max = int(input("How many layers to end with: "))+1
     layers_inc = int(input("How many layers to increment with: "))
@@ -70,8 +70,12 @@ if not warm:
     nodes_range = range(nodes_min, nodes_max, nodes_inc)
 
     samples = int(input("How many samples per parameter set: "))
-        
-    scores = simulate(layers_range, nodes_range, samples)
+else:
+    layers_range = range(1,6,1)
+    nodes_range = range(5,51,5)
+    samples = 1
+
+scores = simulate(layers_range, nodes_range, samples)
 
 parameters_sorted = sorted(scores, key=(lambda e:e[2]), reverse=True)
 p = list(zip(*scores))
